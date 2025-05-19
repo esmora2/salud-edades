@@ -1,31 +1,28 @@
-<!-- resources/views/age-form.blade.php -->
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Formulario de Edad</title>
-</head>
-<body>
-    <h1>Bienvenido al Portal de Salud</h1>
+@extends('layouts.app')
 
-    @if(session('error'))
-        <p style="color: red;">{{ session('error') }}</p>
-    @endif
+@section('title', 'Formulario de Edad')
 
-    <form action="{{ url('/procesar-edad') }}" method="POST">
-        @csrf
-        <label for="age">Ingrese su edad:</label><br>
-        <input 
-            type="number" 
-            name="age" 
-            id="age" 
-            min="0" 
-            max="120" 
-            required 
-            placeholder="Ej: 25"
-        ><br><br>
+@section('content')
+    <div class="card shadow mx-auto" style="max-width: 500px;">
+        <div class="card-body">
+            <h2 class="mb-4 text-center">Bienvenido al Portal de Salud</h2>
 
-        <button type="submit">Continuar</button>
-    </form>
-</body>
-</html>
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ url('/procesar-edad') }}">
+                @csrf
+
+                <div class="mb-3">
+                    <label for="age" class="form-label">Ingrese su edad:</label>
+                    <input type="number" class="form-control" name="age" id="age" min="0" max="120" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Continuar</button>
+            </form>
+        </div>
+    </div>
+@endsection
